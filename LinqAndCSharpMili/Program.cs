@@ -131,9 +131,35 @@ namespace LinqAndCSharpMili
 
             //Employee scott = Array.Find(employees, (e) => e.Name == "Scott");
 
-            //Employee scott = Array.Find(employees, e => e.Name == "Scott");
+            Employee scott = Array.Find(employees, e => e.Name == "Scott");
 
-            employees.Where(e => e.Name == "Scott");
+            //employees.Where(e => e.Name == "Scott");
+
+            IEnumerable<Employee> query1 =
+                from e in employees
+                where e.Name == "Scott"
+                orderby e.Id ascending
+                select e;
+
+            IEnumerable<Employee> query2 =
+                employees.Where(e => e.Name == "Scott")
+                .OrderBy(e => e.Id)
+                .Select(e => e);
+
+            Employee query3 =
+                (from e in employees
+                where e.Name == "Scott"
+                orderby e.Id ascending
+                select e).First();
+
+            Employee query4 =
+                employees.Where(e => e.Name == "Scott")
+                .OrderBy(e => e.Id)
+                .Select(e => e)
+                .First();
+
+
+
         }
 
         //private static bool IsNameScott(Employee obj)
